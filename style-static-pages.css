@@ -1,0 +1,207 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+html {
+  font-family: monospace;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 100vh;
+  margin: 0;
+  padding: 1rem;
+
+  /* wooden table */
+  background-image: url("./images/wooden2.jpg");
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  gap: 1.5rem;
+
+  background-color: #fff;
+  padding: 2rem 2rem;
+  border-radius: 10px;
+  box-shadow: 0px 6px 10px #00000088;
+  min-width: 280px;
+}
+
+.card>span {
+  text-align: center;
+  font-size: 1.25rem;
+  margin-top: -0.5rem;
+  margin-bottom: -0.5rem;
+}
+
+#join-preview {
+  align-self: center;
+  font-size: 1rem;
+  /* border: 1px solid royalblue; */
+  color: #fff;
+  background-color: royalblue;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+#join-preview:hover {
+  background-color: hsl(225, 73%, 54%);
+}
+
+h1 {
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.message-group {
+  color: crimson;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+.message {
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.button {
+  display: inline-block;
+  padding: 1rem 1.1rem;
+  background-color: #222;
+  color: white;
+  text-decoration: none;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 1.2rem;
+  text-align: center;
+  text-shadow: 1px 1px 1px hsl(0deg 0% 0% / 18%);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+.button:hover {
+  background-color: #111;
+}
+
+#join-room.button {
+  background-color: royalblue;
+}
+#join-room.button:hover {
+  background-color: hsl(225, 73%, 54%);
+}
+
+.button>span {
+  flex-grow: 1;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  text-align: center;
+}
+.button>.icon {
+  flex-grow: 0;
+  flex-shrink: 0;
+  margin-top: -12px;
+  margin-bottom: -12px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+#room-code-display {
+  position: relative;
+  padding: 0.5rem 0;
+  text-align: center;
+  color: black;
+}
+.room-code-text {
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: underline;
+  position: relative;
+  color: black;
+}
+.room-code-text:hover {
+  color: #444;
+}
+/* #room-code-display .copied {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translate(-50%, -5%);
+  color: #fff;
+  font-size: 0.8em;
+  background-color: royalblue;
+  padding: 0.5rem 0.8rem;
+  border-radius: 0.5rem;
+} */
+
+.room-group,
+.join-group {
+  align-self: stretch;
+  border: 1px solid hsla(0, 0%, 0%, 0.1);
+  background-color: hsla(0, 0%, 0%, 0.05);
+  border-radius: 1rem;
+  padding: 0.5rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.5rem;
+}
+.join-group {
+  /* border-color: rgba(65, 105, 225, 0.2);
+  background-color: rgba(65, 105, 225, 0.1); */
+  border-color: hsla(225, 73%, 57%, 0.2);
+  background-color: hsla(225, 73%, 57%, 0.1);
+}
+
+input#room-code {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(65, 105, 225, 0.3);
+  background-color: white;
+  color: royalblue;
+  font-weight: bold;
+}
+#room-code::placeholder {
+  color: royalblue;
+  opacity: 0.4;
+  font-weight: normal;
+}
+
+.join-group .help {
+  padding-top: 0.2rem;
+  font-size: 0.85rem;
+  color: royalblue;
+  text-align: center;
+}
+
+#join-preview.hidden,
+.room-group.hidden,
+.join-group.hidden,
+.join-group .help.hidden,
+#create-room.button.hidden {
+  display: none;
+}
