@@ -11,7 +11,7 @@ const checkboxCollisions = document.getElementById("selectCollisions");
 const dicesField = document.getElementById("dicesField");
 const dices = document.querySelectorAll(".dice");
 const dicesNumbers = document.querySelectorAll(".dice>span");
-const diceIcons = document.querySelectorAll(".dice>svg");
+const diceIcons = document.querySelectorAll(".dice>div");
 const navButtons = document.getElementById("navButtons");
 const plusButton = document.getElementById("plusButton");
 const minusButton = document.getElementById("minusButton");
@@ -53,11 +53,11 @@ const roomId = window.location.pathname.slice(1);
 if (roomId && roomId.startsWith('room-')) {
   connectToRoom(roomId);
 } else {
-  window.location.href = '/'; // Если не в комнате, редирект на стартовую страницу
+  window.location.href = '/'; // ???????????????????????? - Если не в комнате, редирект на стартовую страницу
 }
 
 function connectToRoom(roomId) {
-  ws = new WebSocket(`ws://141.147.17.176/${roomId}`); // -- IP -- //
+  ws = new WebSocket(`ws://localhost/${roomId}`); // -- IP -- //
   setupWebSocket();
 }
 
@@ -635,8 +635,8 @@ board.addEventListener('touchend', (e) => {
 let lastTap = 0;
 
 function resetBoardZoomPan() {
-  board.style.setProperty('--x', "0");
-  board.style.setProperty('--y', "0");
+  board.style.setProperty('--x', "0px");
+  board.style.setProperty('--y', "0px");
   board.style.setProperty('--zoom', "100");
 }
 
