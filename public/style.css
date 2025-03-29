@@ -45,7 +45,10 @@ body {
   left: 50%;
   width: 100vmin;
   height: 100vmin;
-  transform: translate(-50%, -50%) scale(calc(var(--zoom) / 100)); /* scale for zooming */
+  /*transform: translate(-50%, -50%) scale(calc(var(--zoom) / 100));*/
+
+  transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) scale(calc(var(--zoom) / 100)); /* scale for zooming + calc for panning */
+
   transition: transform 0.1s ease-out, translate 0.1s ease-out; /* Плавность */
 
   background-size: 100% 100%;
@@ -53,9 +56,9 @@ body {
   background-position: center;
 
   /* zoom and pan */
-  translate: var(--x) var(--y);
-  --x: 0;
-  --y: 0;
+  /* translate: var(--x) var(--y); */ /* android bug !!!!! */
+  --x: 0px;
+  --y: 0px;
   /* zoom: calc(var(--zoom) / 100); */
   --zoom: 100;
 }
@@ -353,14 +356,23 @@ a.cross-icon:hover {
 .dice.hidden {
   display: none;
 }
-.dice>svg {
-  display: none;
-  rotate: 0deg; /* for Safari bug */
 
+.dice>div {
+  display: none;
+}
+.dice.active>div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dice>div>svg {
+  transform: rotate(0deg);
   /* svg stroke */
   stroke: hsl(from currentColor h s calc(l - 7));
   stroke-width: 1px;
 }
+
 .dice.active>img {
   display: none;
 }
@@ -379,9 +391,6 @@ a.cross-icon:hover {
 
   text-shadow: 1px 1px 1px hsl(0deg 0% 0% / 18%);
 }
-.dice.active>svg {
-  display: initial;
-}
 
 /* loading animations (showing and spinning) */
 .showing {
@@ -394,20 +403,31 @@ a.cross-icon:hover {
   100% { opacity: 100; }
 }
 
+/* пришлось разбить из-за андроида */
 .spinning {
+  animation: scaling 1.5s forwards ease-out;
+}
+@keyframes scaling {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.spinning svg {
   animation: spinning 1.5s forwards ease-out;
 }
 @keyframes spinning {
   0% {
-    scale: 1;
-    rotate: 0turn;
-  }
-  50% {
-    scale: 1.2;
+    transform: rotate(0turn);
   }
   100% {
-    scale: 1;
-    rotate: 1turn;
+    transform: rotate(1turn);
   }
 }
 
