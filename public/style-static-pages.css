@@ -1,18 +1,4 @@
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-
-  -webkit-user-select: none; /* Для Webkit-браузеров (Chrome, Safari) */
-  -moz-user-select: none;    /* Для Firefox */
-  -ms-user-select: none;     /* Для Internet Explorer/Edge */
-  user-select: none;         /* Стандартное свойство */
-  -webkit-touch-callout: none; /* Отключает всплывающее меню при долгом нажатии на iOS и некоторых Android */
-
-  -webkit-tap-highlight-color: transparent; /* for chrome blue selection overlay */
-}
+@import url(./styles/reset.css);
 
 html, body {
   height: 100%;
