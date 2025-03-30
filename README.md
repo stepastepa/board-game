@@ -1,1 +1,1 @@
-# Board-Game
+# board-game
