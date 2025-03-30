@@ -57,9 +57,13 @@ if (roomId && roomId.startsWith('room-')) {
 }
 
 function connectToRoom(roomId) {
-  ws = new WebSocket(`ws://141.147.17.176/${roomId}`); // -- IP -- //
+  ws = new WebSocket(`ws://${location.host}/${roomId}`); // -- auto IP -- //
   setupWebSocket();
+
+  console.log(window); // --> info
+  console.log(location); // --> info
 }
+
 
 // HTML for Players:
 function createPiece(id, x, y, colorIndex) {
@@ -334,8 +338,8 @@ playerOptionsForm.addEventListener('submit', (e) => {
 });
 
 // show-hide menu
-menuButton.addEventListener("pointerdown", toggleMenu);
-menuBG.addEventListener("pointerdown", toggleMenu);
+menuButton.addEventListener("click", toggleMenu);
+menuBG.addEventListener("click", toggleMenu);
 
 function toggleMenu() {
   menu.classList.toggle("closed");
@@ -372,13 +376,17 @@ selectBoard.addEventListener("change", function () {
 });
 
 // показываем номер комнаты, как ссылку на комнату
-roomHeaderSpan.innerHTML = `<a href="http://141.147.17.176/${roomId}">${roomId}</a>`;
+roomHeaderSpan.innerHTML = `<a href="http://${location.host}/${roomId}">${roomId}</a>`;
 
 //////////////////////////////////////////////////////////////////////////////////
 // rolling dices
 //////////////////////////////////////////////////////////////////////////////////
-dicesField.addEventListener("pointerdown", (e) => {
-  e.preventDefault(); // android blue overlay selections ???
+
+// dicesField.addEventListener('mousedown', ()=>{}); // ???
+// dicesField.addEventListener('touchstart', ()=>{}); // ???
+
+dicesField.addEventListener("click", (e) => {
+  // e.preventDefault(); // android blue overlay selections ???
   rollDices("start rolling")
 });
 
@@ -676,8 +684,9 @@ plusButton.addEventListener('touchstart', zoomInBoard);
 minusButton.addEventListener('mousedown', zoomOutBoard);
 minusButton.addEventListener('touchstart', zoomOutBoard);
 
-moveButton.addEventListener('mousedown', toggleMoving);
-moveButton.addEventListener('touchstart', toggleMoving);
+// moveButton.addEventListener('mousedown', toggleMoving);
+// moveButton.addEventListener('touchstart', toggleMoving);
+moveButton.addEventListener('click', toggleMoving);
 
 body.addEventListener('mousemove', moveBoard);
 body.addEventListener('touchmove', moveBoard);
