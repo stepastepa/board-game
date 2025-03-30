@@ -11,7 +11,7 @@ const checkboxCollisions = document.getElementById("selectCollisions");
 const dicesField = document.getElementById("dicesField");
 const dices = document.querySelectorAll(".dice");
 const dicesNumbers = document.querySelectorAll(".dice>span");
-const diceIcons = document.querySelectorAll(".dice>div");
+const diceIcons = document.querySelectorAll(".dice svg");
 const navButtons = document.getElementById("navButtons");
 const plusButton = document.getElementById("plusButton");
 const minusButton = document.getElementById("minusButton");
@@ -57,7 +57,7 @@ if (roomId && roomId.startsWith('room-')) {
 }
 
 function connectToRoom(roomId) {
-  ws = new WebSocket(`ws://localhost/${roomId}`); // -- IP -- //
+  ws = new WebSocket(`ws://141.147.17.176/${roomId}`); // -- IP -- //
   setupWebSocket();
 }
 
@@ -377,7 +377,10 @@ roomHeaderSpan.innerHTML = `<a href="http://141.147.17.176/${roomId}">${roomId}<
 //////////////////////////////////////////////////////////////////////////////////
 // rolling dices
 //////////////////////////////////////////////////////////////////////////////////
-dicesField.addEventListener("pointerdown", () => rollDices("start rolling"));
+dicesField.addEventListener("pointerdown", (e) => {
+  e.preventDefault(); // android blue overlay selections ???
+  rollDices("start rolling")
+});
 
 function rollDices(xxx) {
   if (spinning != true) {
