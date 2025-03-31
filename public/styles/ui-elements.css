@@ -1,0 +1,71 @@
+/* ----------< main button >---------- */
+.button-main {
+  display: inline-block;
+  padding: 1rem 1.1rem;
+  background-color: #222;
+  color: white;
+  text-decoration: none;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 1.2rem;
+  text-align: center;
+  text-shadow: 1px 1px 1px hsl(0deg 0% 0% / 18%);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+.button-main:hover {
+  background-color: #111;
+}
+.button-main>span {
+  flex-grow: 1;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  text-align: center;
+}
+.button-main>.icon {
+  flex-grow: 0;
+  flex-shrink: 0;
+  margin-top: -12px;
+  margin-bottom: -12px;
+}
+
+/* main button modifications */
+#join-room.button-main {
+  background-color: royalblue;
+}
+#join-room.button-main:hover {
+  background-color: hsl(225, 73%, 54%);
+}
+
+/* ----------< round button >---------- */
+.button-round {
+  position: absolute;
+  background-color: white;
+  padding: 0.8rem;
+  border-radius: 50%;
+  cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  box-shadow: 0px 6px 10px #00000088;
+  transition: scale 0.2s ease;
+}
+.button-round.active {
+  background-color: black;
+  color: white; /* to invert svg icon */
+}
+.button-round:hover {
+  scale: 1.1;
+}
+.button-round:active {
+  scale: 1.2;
+}
+.button-round.active:hover {
+  background-color: hsl(0, 0%, 15%);
+}
