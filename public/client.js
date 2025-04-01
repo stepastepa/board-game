@@ -62,6 +62,7 @@ function connectToRoom(roomId) {
 
   console.log(window); // --> info
   console.log(location); // --> info
+  console.log(ws); // --> info
 }
 
 
@@ -297,6 +298,11 @@ function setupWebSocket() {
 
   ws.onopen = () => {
     console.log('Connected to server');
+  };
+
+  ws.onclose = () => {
+    console.log('Connection to server is closed');
+    window.location.href = `./${roomId}`; // попробовать снова зайти в комнату
   };
 }
 
