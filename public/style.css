@@ -243,6 +243,39 @@ a.cross-icon:hover {
   margin-bottom: 0.5rem;
 }
 
+.room-info {
+  display: flex;
+  align-items: center;
+
+  font-size: 1rem;
+  border: 1px solid hsla(120, 61%, 50%, 0.4);
+  background-color: hsla(120, 61%, 50%, 0.15);
+  color: limegreen;
+  padding: 0.5rem;
+  border-radius: 1rem;
+}
+
+.user-icon {
+  flex: 0 0 auto;
+  display: flex;
+  padding: 0.5rem;
+}
+
+.room-info-message {
+  flex: 1 1 auto;
+
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 1rem;
+
+  padding: 0.5rem;
+}
+
+#onlineNumber {
+  font-size: 1.3rem;
+}
+
 #menuButton {
   z-index: 2;
   transform: translateZ(0);

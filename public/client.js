@@ -292,6 +292,9 @@ function setupWebSocket() {
     } else if (data.type === 'error') { // если перезагрузить страницу, то комната исчезает (потому что, если все вышли из комнаты, то сервер ее сразу удаляет) и затем сервер ошибку пишет --> переадресация на 404
       // alert(data.message);
       window.location.href = './page404.html'; // ---> 404 (при перезагрузке)
+    } else if (data.type === "online players") {
+      console.log(data.playersOnline);
+      onlineNumber.innerText = data.playersOnline; // обновляем число онлайн игроков
     }
     updateZIndex();
   };

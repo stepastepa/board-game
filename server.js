@@ -72,7 +72,7 @@ function generateRandomOrder(board) {
     randomOrder = [0, 1, 4, 2, 3, 5]; // CW: blue, red, purple, green, yellow, black
     return ludoShuffleCW(randomOrder);
   }
-  
+
   return shuffle(randomOrder); // перемешивание полное
 }
 
@@ -199,6 +199,21 @@ function rollTheDices(room, yyy) {
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
 
+function sendNumberOfOnlinePlayers(room) {
+  // Рассылаем количество игроков онлайн
+  room.clients.forEach((client) => {
+    if (client.readyState === WebSocket.OPEN) {
+      client.send(JSON.stringify({
+        type: 'online players',
+        playersOnline: room.clients.size
+      }));
+    }
+  });
+}
+
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
+
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
@@ -275,6 +290,8 @@ wss.on('connection', (ws, req) => {
   console.log(`New player connected to ${roomId}`);
   cancelTimer(roomId); // отменяем таймер удаления комнаты
 
+  sendNumberOfOnlinePlayers(room); // Рассылаем количество игроков онлайн
+
   // Отправляем полное текущее состояние всех фишек новому игроку
   ws.send(JSON.stringify({
     type: 'init',
@@ -286,7 +303,8 @@ wss.on('connection', (ws, req) => {
     diceOrder: room.diceOrder,
     randomOrder: room.randomOrder,
     iOrder: room.iOrder,
-    roomId
+    roomId,
+    playersOnline: room.clients.size
   }));
 
   ws.on('message', (message) => {
@@ -364,6 +382,8 @@ wss.on('connection', (ws, req) => {
       // console.log(room);
       startTimer(roomId);
     }
+    
+    sendNumberOfOnlinePlayers(room); // Рассылаем количество игроков онлайн
   });
 });
 
