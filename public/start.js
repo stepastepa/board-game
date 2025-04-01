@@ -18,7 +18,7 @@ createRoomBtn.addEventListener('click', () => {
     })
     .then(data => {
       const roomId = data.roomId;
-      roomCodeDisplay.innerHTML = `Your room: <a href="http://${location.host}/${roomId}" class="room-code-text">${roomId}</a>`;
+      roomCodeDisplay.innerHTML = `<span>Your room:</span><a href="http://${location.host}/${roomId}" class="room-code-text">${roomId}</a>`;
       createRoomBtn.classList.add("hidden");
       roomInfo.classList.remove("hidden");
       goToRoomBtn.onclick = () => {

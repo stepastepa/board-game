@@ -207,6 +207,15 @@ body {
   color: rgb(252, 22, 68);
 }
 
+.room-header,
+.room-text,
+.room-text a {
+  -webkit-user-select: text; /* Для Webkit-браузеров (Chrome, Safari) */
+  -moz-user-select: text;    /* Для Firefox */
+  -ms-user-select: text;     /* Для Internet Explorer/Edge */
+  user-select: text;         /* Стандартное свойство */
+}
+
 a.cross-icon {
   flex: 0 0 auto;
   color: #fff;

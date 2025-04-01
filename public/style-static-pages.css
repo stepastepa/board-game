@@ -85,8 +85,11 @@ h1 {
 #room-code-display {
   position: relative;
   padding: 0.5rem 0;
-  text-align: center;
   color: black;
+
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
 }
 .room-code-text {
   font-weight: bold;
@@ -97,6 +100,14 @@ h1 {
 }
 .room-code-text:hover {
   color: #444;
+}
+#room-code-display,
+#room-code-display>span,
+.room-code-text {
+  -webkit-user-select: text; /* Для Webkit-браузеров (Chrome, Safari) */
+  -moz-user-select: text;    /* Для Firefox */
+  -ms-user-select: text;     /* Для Internet Explorer/Edge */
+  user-select: text;         /* Стандартное свойство */
 }
 /* #room-code-display .copied {
   position: absolute;
