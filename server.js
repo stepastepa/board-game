@@ -50,13 +50,30 @@ function shuffle(array) {
   return array;
 }
 
+function ludoShuffleCW(array) {
+  let startIndex = randomInteger(0, array.length - 1);
+  let randomCWOrder = [];
+  // Добавляем элементы в новый массив, начиная с выбранного индекса по кругу
+  for (let i = 0; i < array.length; i++) {
+    let currentIndex = (startIndex + i) % array.length;
+    randomCWOrder.push(array[currentIndex]);
+  }
+  
+  return randomCWOrder;
+}
+
 function generateRandomOrder(board) {
   let randomOrder = [0, 1, 2, 3, 4, 5]; // сброc
-  // для Ludo
-  if (+board === 2) {
-    randomOrder = [0, 1, 2, 3];
+
+  if (+board === 2) { // для Ludo 4x
+    randomOrder = [0, 2, 1, 3]; // CW: blue, green, red, yellow
+    return ludoShuffleCW(randomOrder);
+  } else if (+board === 3) { // для Ludo 6x
+    randomOrder = [0, 1, 4, 2, 3, 5]; // CW: blue, red, purple, green, yellow, black
+    return ludoShuffleCW(randomOrder);
   }
-  return shuffle(randomOrder); // перемешивание
+  
+  return shuffle(randomOrder); // перемешивание полное
 }
 
 // Генерация начального состояния фишек
