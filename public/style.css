@@ -58,13 +58,13 @@ body {
 }
 
 #game-board.world {
-  background-image: url("./images/world.png");
+  background-image: url("./images/world.jpg");
 }
 #game-board.ludo {
-  background-image: url("./images/ludo.png");
+  background-image: url("./images/ludo.jpg");
 }
 #game-board.ladders {
-  background-image: url("./images/ladders2.png");
+  background-image: url("./images/ladders2.jpg");
 }
 #game-board.ludo-6x {
   background-image: url("./images/ludo-6x.jpg");
