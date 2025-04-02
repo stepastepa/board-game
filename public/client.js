@@ -363,7 +363,7 @@ function toggleMenu() {
 selectBoard.addEventListener("change", () => modifyMenuOptions(+numberOfPlayers.value, +selectBoard.value));
 
 function modifyMenuOptions(numPlayers, board) {
-  const selectedMap = board; // string to integer
+  const selectedMap = board;
 
   let two = '', three = '', four = '', five = '', six = '';
   if (numPlayers === 6) six = "selected";
@@ -389,7 +389,10 @@ function modifyMenuOptions(numPlayers, board) {
     `;
   }
 
-  selectBoard.children[board-1].setAttribute('selected', '');
+  for (let el of selectBoard.children) { // reset all selected options
+    el.removeAttribute('selected');
+  }
+  selectBoard.children[board-1].setAttribute('selected', ''); // add selected
 }
 
 // показываем номер комнаты, как ссылку на комнату
