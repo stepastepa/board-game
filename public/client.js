@@ -229,6 +229,10 @@ function setupWebSocket() {
           dices[1].classList.add("hidden"); // 1 кубик
           break;
       }
+
+      // синхронизируем выбранные данные из меню с серверными данными
+      modifyMenuOptions(data.numPlayers, data.boardType)
+
     } else if (data.type === 'update') {
       const piece = pieces.get(data.id);
       if (piece && piece !== selectedPiece) {
@@ -356,14 +360,16 @@ function toggleMenu() {
 }
 
 // switch Menu Players to 4 max mode with Ludo
-selectBoard.addEventListener("change", function () {
-  const selectedMap = +this.value; // string to integer
+selectBoard.addEventListener("change", () => modifyMenuOptions(+numberOfPlayers.value, +selectBoard.value));
+
+function modifyMenuOptions(numPlayers, board) {
+  const selectedMap = board; // string to integer
 
   let two = '', three = '', four = '', five = '', six = '';
-  if (+numberOfPlayers.value === 6) six = "selected";
-  else if (+numberOfPlayers.value === 5) five = "selected";
-  else if (+numberOfPlayers.value === 4) four = "selected";
-  else if (+numberOfPlayers.value === 3) three = "selected";
+  if (numPlayers === 6) six = "selected";
+  else if (numPlayers === 5) five = "selected";
+  else if (numPlayers === 4) four = "selected";
+  else if (numPlayers === 3) three = "selected";
   else two = "selected";
 
   if (selectedMap === 2) {
@@ -382,7 +388,9 @@ selectBoard.addEventListener("change", function () {
       <option value="6" ${six}>6</option>
     `;
   }
-});
+
+  selectBoard.children[board-1].setAttribute('selected', '');
+}
 
 // показываем номер комнаты, как ссылку на комнату
 roomHeaderSpan.innerHTML = `<a href="http://${location.host}/${roomId}">${roomId}</a>`;
