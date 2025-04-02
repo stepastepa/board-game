@@ -35,7 +35,7 @@ body {
   width: 100vmin;
   height: 100vmin;
   transform: translate(-50%, -50%) scale(calc(var(--zoom) / 100)); /* centering + zoom(centered) */
-  transition: transform 0.1s ease-out, translate 0.1s ease-out;
+  transition: transform 0.1s ease, translate 0.1s ease;
 
   background-size: 100% 100%;
   background-repeat: no-repeat;
@@ -55,6 +55,7 @@ body {
 }
 #game-board.panning-mode.panning-active {
   cursor: grabbing;
+  transition: none; /* временно отключаем transition при тягании */
 }
 
 #game-board.world {
