@@ -384,7 +384,7 @@ a.cross-icon:hover {
   100% { opacity: 100; }
 }
 
-.spinning {
+.spinning .svg-hexagon {
   animation: spinning 1.5s forwards ease-out;
 }
 /* chrome 103 bug !!! */
@@ -435,3 +435,37 @@ a.cross-icon:hover {
     transform: scale(calc(100vw / 800px));
   }
 } */
+
+/* ========== for older browsers ========== */
+.dice .svg-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinning .svg-wrapper {
+  animation: scaling-old 1.5s forwards ease-out;
+}
+@keyframes scaling-old {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.spinning .svg-wrapper svg {
+  animation: spinning-old 1.5s forwards ease-out;
+}
+@keyframes spinning-old {
+  0% {
+    transform: rotate(0turn);
+  }
+  100% {
+    transform: rotate(1turn);
+  }
+}

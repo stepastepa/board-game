@@ -11,7 +11,7 @@ const checkboxCollisions = document.getElementById("selectCollisions");
 const dicesField = document.getElementById("dicesField");
 const dices = document.querySelectorAll(".dice");
 const dicesNumbers = document.querySelectorAll(".dice>span");
-const diceIcons = document.querySelectorAll(".dice svg");
+// const diceIcons = document.querySelectorAll(".dice svg");
 const navButtons = document.getElementById("navButtons");
 const plusButton = document.getElementById("plusButton");
 const minusButton = document.getElementById("minusButton");
@@ -398,6 +398,29 @@ function modifyMenuOptions(numPlayers, board) {
 // показываем номер комнаты, как ссылку на комнату
 roomHeaderSpan.innerHTML = `<a href="http://${location.host}/${roomId}">${roomId}</a>`;
 
+////////////////////////////////////////////////
+// toggle dice's HTML code for legacy browsers
+selectLegacyBrowsers.addEventListener('change', modifyDiceHTML);
+let savedSVG = dices[0].lastElementChild; // сохраняем SVG
+
+function modifyDiceHTML() {
+  if (selectLegacyBrowsers.checked) {
+    dices.forEach((el) => {
+      let divSvgDice = document.createElement('div');
+      divSvgDice.classList.add('svg-wrapper');
+      const clonedSVG = savedSVG.cloneNode(true); // копируем из памяти
+      clonedSVG.classList.remove('svg-hexagon'); // удаляем class !!!
+      divSvgDice.append(clonedSVG); // вставляем копию в div
+      el.replaceChild(divSvgDice, el.querySelector('.svg-hexagon')); // заменяем
+    });
+  } else {
+    dices.forEach((el) => {
+      const clonedSVG = savedSVG.cloneNode(true); // копируем из памяти
+      el.replaceChild(clonedSVG, el.querySelector('.svg-wrapper')); // заменяем
+    });
+  }
+}
+
 //////////////////////////////////////////////////////////////////////////////////
 // rolling dices
 //////////////////////////////////////////////////////////////////////////////////
@@ -427,14 +450,14 @@ function animationOfLoadingForDice(n1, n2) {
     dicesNumbers[0].innerText = n1; // показывает сразу, но скрыто стилями
     dicesNumbers[1].innerText = n2; // показывает сразу, но скрыто стилями
 
-    diceIcons[0].classList.add('spinning');
-    diceIcons[1].classList.add('spinning');
+    dices[0].classList.add('spinning');
+    dices[1].classList.add('spinning');
 
     setTimeout(() => {
       dicesNumbers[0].classList.remove('showing');
       dicesNumbers[1].classList.remove('showing');
-      diceIcons[0].classList.remove('spinning');
-      diceIcons[1].classList.remove('spinning');
+      dices[0].classList.remove('spinning');
+      dices[1].classList.remove('spinning');
       resolve();
     }, 1500);
   });
