@@ -392,7 +392,7 @@ function modifyMenuOptions(numPlayers, board) {
   for (let el of selectBoard.children) { // reset all selected options
     el.removeAttribute('selected');
   }
-  selectBoard.children[board-1].setAttribute('selected', ''); // add selected
+  selectBoard.children[board - 1].selected = true; // add selected
 }
 
 // показываем номер комнаты, как ссылку на комнату
