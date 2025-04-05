@@ -16,6 +16,7 @@ html {
 
 body {
   background-color: #222;
+  height: 100dvh;
 }
 
 .loader, span {
