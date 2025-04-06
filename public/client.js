@@ -353,6 +353,7 @@ playerOptionsForm.addEventListener('submit', (e) => {
 // show-hide menu
 menuButton.addEventListener("click", toggleMenu);
 menuBG.addEventListener("click", toggleMenu);
+menuClose.addEventListener("click", toggleMenu);
 
 function toggleMenu() {
   menu.classList.toggle("closed");

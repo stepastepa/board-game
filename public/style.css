@@ -283,6 +283,14 @@ a.cross-icon:hover {
   top: 0.5rem;
   left: 0.5rem;
 }
+
+#menuClose {
+  z-index: 2;
+  top: -1.7rem;
+  right: -1.7rem;
+  transform: scale(0.6);
+}
+
 #navButtons {
   z-index: 2;
   transform: translateZ(0);
