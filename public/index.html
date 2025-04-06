@@ -3,14 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Board Game - Loading</title>
-  <link rel="stylesheet" href="./styles/loader.css">
+  <title>Board Game</title>
   <link rel="icon" href="./images/dice-emoji.svg" type="image/svg+xml"/>
   <link rel="icon" href="./images/dice-emoji.png" type="image/png" sizes="16x16"/>
   <link rel="apple-touch-icon" href="./images/dice-emoji.png"/>
+  <style>
+    body {
+      height: 100dvh;
+      background-color: #222;
+    }
+  </style>
 </head>
 <body>
-  <div class="loader"></div>
-  <span>🎲</span>
-  <script src="./loading.js"></script>
+  <script>
+    // через (body) req.body.autojoin === 'true'
+    fetch('/create-room', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ autojoin: true })
+    })
+    .then(response => {
+      if (response.redirected) {
+        window.location.href = response.url; // Редирект на /:roomId
+      } else {
+        return response.json().then(data => {
+          window.location.href = `/${data.roomId}`;
+        });
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      window.location.href = '/start'; // Редирект на стартовую страницу при ошибке
+    });
+  </script>
 </body>

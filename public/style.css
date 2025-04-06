@@ -444,7 +444,9 @@ a.cross-icon:hover {
   }
 } */
 
+
 /* ========== for older browsers ========== */
+
 .dice .svg-wrapper {
   display: flex;
   justify-content: center;
@@ -476,4 +478,46 @@ a.cross-icon:hover {
   100% {
     transform: rotate(1turn);
   }
+}
+
+
+/* ========== loader ========== */
+
+.loader-container {
+  position: relative;
+  background-color: #222;
+  height: 100dvh;
+  z-index: 999999; /* ontop of all */
+}
+
+.loader-container.hidden {
+  display: none;
+}
+
+.loader-container span {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  font-size: 4rem;
+}
+
+.loader-container .loader-anim {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  border: 0.2rem solid hsla(0, 0%, 100%, 0.08);
+  border-top: 0.2rem solid hsla(0, 0%, 100%, 0.8);
+  border-radius: 50%;
+  width: 8.5rem;
+  height: 8.5rem;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
 }
