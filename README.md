@@ -1,2 +1,2 @@
 # board-game
-http://141.147.17.176/start
+[Play Game](http://141.147.17.176/start)
