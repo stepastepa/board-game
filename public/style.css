@@ -70,6 +70,9 @@ body {
 #game-board.ludo-6x {
   background-image: url("./images/ludo-6x.jpg");
 }
+#game-board.alisa {
+  background-image: url("./images/alisa-board.jpg");
+}
 
 .player {
   width: 1px;

@@ -228,6 +228,10 @@ function setupWebSocket() {
           board.className = "ladders"; // Ladders
           dices[1].classList.add("hidden"); // 1 кубик
           break;
+        case 5:
+          board.className = "alisa"; // Alisa
+          dices[1].classList.add("hidden"); // 1 кубик
+          break;
       }
 
       // синхронизируем выбранные данные из меню с серверными данными
