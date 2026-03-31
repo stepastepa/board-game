@@ -33,7 +33,9 @@ body {
   top: 50%;
   left: 50%;
   width: 100vmin;
+  width: min(100vw, 100dvh); /* dvh for iOS Safari */
   height: 100vmin;
+  height: min(100vw, 100dvh); /* dvh for iOS Safari */
   transform: translate(-50%, -50%) scale(calc(var(--zoom) / 100)); /* centering + zoom(centered) */
   transition: transform 0.1s ease, translate 0.1s ease;
 
