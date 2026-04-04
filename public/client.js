@@ -17,6 +17,11 @@ const plusButton = document.getElementById("plusButton");
 const minusButton = document.getElementById("minusButton");
 const moveButton = document.getElementById("moveButton");
 const roomHeaderSpan = document.querySelector(".room-header span");
+const sorryCards = document.querySelector(".sorry-cards");
+const sorryCardsList = document.querySelectorAll(".sorry-cards>div");
+const sorryCardsNumber = document.querySelector(".sorry-cards .card>div");
+const sorryCardsText = document.querySelector(".sorry-cards .card>p");
+const sorryCardsMiniNumbers = document.querySelectorAll(".sorry-cards .card li");
 
 let ws;
 
@@ -214,23 +219,41 @@ function setupWebSocket() {
       switch (data.boardType) {
         case 1:
           board.className = "world"; // Вокруг Света
+          dices[0].classList.remove("hidden");
           dices[1].classList.remove("hidden"); // 2 кубика
+          sorryCards.classList.add("hidden");
           break;
         case 2:
           board.className = "ludo"; // Ludo
-          dices[1].classList.add("hidden"); // 1 кубик
+          dices[0].classList.remove("hidden"); // 1 кубик
+          dices[1].classList.add("hidden");
+          sorryCards.classList.add("hidden");
           break;
         case 3:
           board.className = "ludo-6x"; // Ludo 6x
-          dices[1].classList.add("hidden"); // 1 кубик
+          dices[0].classList.remove("hidden"); // 1 кубик
+          dices[1].classList.add("hidden");
+          sorryCards.classList.add("hidden");
           break;
         case 4:
           board.className = "ladders"; // Ladders
-          dices[1].classList.add("hidden"); // 1 кубик
+          dices[0].classList.remove("hidden"); // 1 кубик
+          dices[1].classList.add("hidden");
+          sorryCards.classList.add("hidden");
           break;
         case 5:
           board.className = "alisa"; // Alisa
-          dices[1].classList.add("hidden"); // 1 кубик
+          dices[0].classList.remove("hidden"); // 1 кубик
+          dices[1].classList.add("hidden");
+          sorryCards.classList.add("hidden");
+          break;
+        case 6:
+          board.className = "sorry"; // Sorry
+          dices[0].classList.add("hidden"); // карточки вместо кубиков
+          dices[1].classList.add("hidden");
+          // -------------------
+          sorryCards.classList.remove("hidden");
+          // -------------------
           break;
       }
 
@@ -297,6 +320,45 @@ function setupWebSocket() {
       } else if (data.number1 != 0 || data.number2 != 0) { // updating with spinning
         showingDices(data.number1, data.number2);
       }
+
+      //////////////////
+      //////////////////
+      // Sorry Cards
+      sorryCards.style.borderColor = diceColor;
+      sorryCardsList[0].classList.remove("active"); // hide play
+      sorryCardsList[1].classList.add("active"); // show card
+
+      if (data.number1 === "" || +data.number1 === 0) { // empty data or reset
+        sorryCardsList[0].classList.add("active"); // show play
+        sorryCardsList[1].classList.remove("active"); // hide card
+      } else if (data.justCurrentDices) { // after reloading the page
+        sorryCardsNumber.innerText = data.number1;
+        sorryCardsText.innerText = data.number2;
+        sorryCardsMiniNumbers[0].innerText = data.number1;
+        sorryCardsMiniNumbers[1].innerText = data.number1;
+        sorryCardsMiniNumbers[2].innerText = data.number1;
+        sorryCardsMiniNumbers[3].innerText = data.number1;
+        if(data.number1 === "Sorry!") {
+          sorryCards.classList.add('sorry-type');
+        } else {
+          sorryCards.classList.remove('sorry-type');
+        }
+      } else if (data.number1 != 0 || data.number2 != 0) {
+        sorryCardsNumber.innerText = data.number1;
+        sorryCardsText.innerText = data.number2;
+        sorryCardsMiniNumbers[0].innerText = data.number1;
+        sorryCardsMiniNumbers[1].innerText = data.number1;
+        sorryCardsMiniNumbers[2].innerText = data.number1;
+        sorryCardsMiniNumbers[3].innerText = data.number1;
+        if(data.number1 === "Sorry!") {
+          sorryCards.classList.add('sorry-type');
+        } else {
+          sorryCards.classList.remove('sorry-type');
+        }
+      }
+      //////////////////
+      //////////////////
+
     } else if (data.type === 'error') { // если перезагрузить страницу, то комната исчезает (потому что, если все вышли из комнаты, то сервер ее сразу удаляет) и затем сервер ошибку пишет --> переадресация на 404
       // alert(data.message);
       window.location.href = './page404.html'; // ---> 404 (при перезагрузке)
@@ -364,7 +426,7 @@ function toggleMenu() {
   menuButton.classList.toggle("closed");
 }
 
-// switch Menu Players to 4 max mode with Ludo
+// switch Menu Players to 4 max mode with Ludo 4x or Sorry
 selectBoard.addEventListener("change", () => modifyMenuOptions(+numberOfPlayers.value, +selectBoard.value));
 
 function modifyMenuOptions(numPlayers, board) {
@@ -377,13 +439,18 @@ function modifyMenuOptions(numPlayers, board) {
   else if (numPlayers === 3) three = "selected";
   else two = "selected";
 
-  if (selectedMap === 2) {
+  if (selectedMap === 2 || selectedMap === 6) {
+    // for Ludo 4x and Sorry
     if (six != '' || five != '') four = "selected";
     numberOfPlayers.innerHTML = `
       <option value="2" ${two}>2</option>
       <option value="3" ${three}>3</option>
       <option value="4" ${four}>4</option>
     `;
+    // collisions for Sorry
+    if (selectedMap === 6) {
+      checkboxCollisions.checked = true;
+    }
   } else {
     numberOfPlayers.innerHTML = `
       <option value="2" ${two}>2</option>
@@ -436,6 +503,10 @@ function modifyDiceHTML() {
 dicesField.addEventListener("click", (e) => {
   // e.preventDefault(); // android blue overlay selections ???
   rollDices("start rolling")
+});
+
+sorryCards.addEventListener("click", (e) => {
+  rollDices("start rolling");
 });
 
 function rollDices(xxx) {

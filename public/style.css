@@ -17,6 +17,8 @@ body {
 }
 
 #game-board {
+  container-type: inline-size;
+
   z-index: 1;
   /* width: 100vw;
   height: 100vh;
@@ -32,10 +34,10 @@ body {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 100vmin;
+  width: 100vmin; /* тоже самое, что написать min(100vw, 100vh) */
   width: min(100vw, 100dvh); /* dvh for iOS Safari */
   height: 100vmin;
-  height: min(100vw, 100dvh); /* dvh for iOS Safari */
+  height: min(100vw, 100dvh);
   transform: translate(-50%, -50%) scale(calc(var(--zoom) / 100)); /* centering + zoom(centered) */
   transition: transform 0.1s ease, translate 0.1s ease;
 
@@ -74,6 +76,9 @@ body {
 }
 #game-board.alisa {
   background-image: url("./images/alisa-board.png");
+}
+#game-board.sorry {
+  background-image: url("./images/sorry3.png");
 }
 
 .player {
@@ -525,4 +530,136 @@ a.cross-icon:hover {
 @keyframes spin {
   0% { transform: translate(-50%, -50%) rotate(0deg); }
   100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+
+/* ========== cards for Sorry ========== */
+
+.sorry-cards {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  height: 39%;
+  width: 27%;
+  border: 1cqi solid black;
+  border-radius: 2cqi;
+  background-color: white;
+  box-shadow: 0 0 0 0.2cqi black,
+              0 0 0 0.5cqi white,
+              0 0 0 0.9cqi black,
+              0.8cqi 0.8cqi 0.5cqi hsla(0, 0%, 0%, 0.5),
+              inset 0 0 0 0.2cqi black;
+
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+
+  cursor: pointer;
+
+  container-type: inline-size;
+}
+
+.sorry-cards>div {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  padding: 10%;
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  font-family: sans-serif;
+  font-weight: bold;
+
+  &:before {
+    position: absolute;
+    content: '';
+    width: 90%;
+    height: 80%;
+    background-color: hsl(0deg 100% 0% / 0.07);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+  }
+  &:first-child {
+    color: black;
+  }
+  & div {
+    font-size: 40cqi; /* 40% от ширины контейнера */
+  }
+  &.card div {
+    font-size: 80cqi; /* 80% от ширины контейнера */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    z-index: 1;
+  }
+  & p {
+    font-size: 6cqi; /* 6% от ширины контейнера */
+    z-index: 2;
+  }
+  & ul {
+    list-style: none;
+    & li {
+      position: absolute;
+      font-size: 17cqi; /* 17% от ширины контейнера */
+    }
+    & li:nth-child(1) {
+      top: 1%;
+      left: 4%;
+    }
+    & li:nth-child(2) {
+      top: 1%;
+      right: 4%;
+    }
+    & li:nth-child(3) {
+      bottom: 1%;
+      left: 4%;
+    }
+    & li:nth-child(4) {
+      bottom: 1%;
+      right: 4%;
+    }
+  }
+}
+.sorry-cards.sorry-type .card {
+  & div {
+    font-size: 30cqi;
+  }
+  & ul {
+    & li {
+      font-size: 20cqi;
+    }
+    & li:nth-child(1) {
+      top: 1%;
+      left: 50%;
+      transform: translate(-50%, 0);
+    }
+    & li:nth-child(2) {
+      display: none;
+    }
+    & li:nth-child(3) {
+      display: none;
+    }
+    & li:nth-child(4) {
+      bottom: 1%;
+      right: 50%;
+      transform: translate(50%, 0);
+    }
+  }
+}
+.sorry-cards.hidden, .sorry-cards>div {
+  display: none;
+}
+.sorry-cards>div.active {
+  display: flex;
 }
