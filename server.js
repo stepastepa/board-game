@@ -13,6 +13,14 @@ app.use(express.json()); // Для обработки JSON-запросов
 const rooms = new Map(); // для комнат
 
 ///////////////////////////////////////////////////////////////////
+/////////////////    Sorry Cards    ///////////////////////////////
+
+const { deckOfCards } = require('./deckofcards.js');
+const { cardsArray } = require('./listofcards.js');
+
+const pickCard = deckOfCards(cardsArray); // function with card deck logic
+
+///////////////////////////////////////////////////////////////////
 /////////////////    Timers for Rooms     /////////////////////////
 
 const timers = {}; // таймеры для удаления комнат
@@ -204,30 +212,15 @@ function rollTheDices(room, yyy) {
       }
     } else if (+room.boardType === 6) { // for Sorry Cards
 
-      /////////////////////////////
-      /////////////////////////////
-      // Sorry Cards Array
-      const cardsArray = [
-        { number: 1, text: "Either move a pawn from Start or move a pawn 1 space forward." },
-        { number: 2, text: "Either move a pawn from Start or move a pawn 2 spaces forward. Drawing a two, even if it does not enable movement, entitles the player to draw again at the end of their turn." },
-        { number: 3, text: "Move a pawn 3 spaces forward." },
-        { number: 4, text: "Move a pawn 4 spaces backward." },
-        { number: 5, text: "Move a pawn 5 spaces forward." },
-        { number: 7, text: "Move one pawn 7 spaces forward, or split the 7 spaces between two pawns (such as 4 spaces for one pawn and 3 for another). This makes it possible for two pawns to enter Home on the same turn, for example. The seven cannot be used to move a pawn out of Start, even if the player splits it into 6 and 1 or 5 and 2. The entire 7 spaces must be used or their turn ends. The player cannot move their pawn backwards with a split." },
-        { number: 8, text: "Move a pawn 8 spaces forward." },
-        { number: 10, text: "Move a pawn 10 spaces forward or one space backward. If none of a player's pawns can move forward 10 spaces, then one pawn must move back 1 space." },
-        { number: 11, text: "Move 11 spaces forward, or switch the places of one of the player's own pawns and an opponent's pawn. A player who cannot move 11 spaces is not forced to switch and instead can end their turn. An 11 cannot be used to switch a pawn that is in a Safety Zone, or to move a pawn out of Start." },
-        { number: 12, text: "Move a pawn twelve spaces forward." },
-        { number: 'Sorry!', text: "Take any one pawn from Start and move it directly to a square occupied by any opponent's pawn, sending that pawn back to its own Start. A Sorry! card cannot be used on an opponent's pawn in a Safety Zone or at the Home base. If there are no pawns on the player's Start, or no opponent's pawns on any space that can be moved to, the turn ends." },
-      ];
-
-      let pickedCard = cardsArray[randomInteger(0, 10)]; // pick a random card
+      if (room.number1 === 0) {
+        pickCard("reset");
+        console.log("Resetting our Deck Of Cards!!!!");
+      }
+      // pick a new card from the deck
+      let pickedCard = pickCard("next");
       room.number1 = pickedCard.number;
       room.number2 = pickedCard.text;
       room.diceOrder = nextOrder(room);
-
-      /////////////////////////////
-      /////////////////////////////
 
     } else { // for others games
       room.number1 = diceNumArray[randomInteger(0, 5)];
