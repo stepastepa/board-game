@@ -332,29 +332,9 @@ function setupWebSocket() {
         sorryCardsList[0].classList.add("active"); // show play
         sorryCardsList[1].classList.remove("active"); // hide card
       } else if (data.justCurrentDices) { // after reloading the page
-        sorryCardsNumber.innerText = data.number1;
-        sorryCardsText.innerText = data.number2;
-        sorryCardsMiniNumbers[0].innerText = data.number1;
-        sorryCardsMiniNumbers[1].innerText = data.number1;
-        sorryCardsMiniNumbers[2].innerText = data.number1;
-        sorryCardsMiniNumbers[3].innerText = data.number1;
-        if(data.number1 === "Sorry!") {
-          sorryCards.classList.add('sorry-type');
-        } else {
-          sorryCards.classList.remove('sorry-type');
-        }
+        showingCards(data.number1, data.number2);
       } else if (data.number1 != 0 || data.number2 != 0) {
-        sorryCardsNumber.innerText = data.number1;
-        sorryCardsText.innerText = data.number2;
-        sorryCardsMiniNumbers[0].innerText = data.number1;
-        sorryCardsMiniNumbers[1].innerText = data.number1;
-        sorryCardsMiniNumbers[2].innerText = data.number1;
-        sorryCardsMiniNumbers[3].innerText = data.number1;
-        if(data.number1 === "Sorry!") {
-          sorryCards.classList.add('sorry-type');
-        } else {
-          sorryCards.classList.remove('sorry-type');
-        }
+        showingCards(data.number1, data.number2);
       }
       //////////////////
       //////////////////
@@ -505,9 +485,17 @@ dicesField.addEventListener("click", (e) => {
   rollDices("start rolling")
 });
 
-sorryCards.addEventListener("pointerup", (e) => {
-  rollDices("start rolling");
+let sorryClick = false;
+sorryCards.addEventListener("pointerdown", (e) => {
+  sorryClick = true;
 });
+sorryCards.addEventListener("pointerup", (e) => {
+  if (sorryClick) {
+    rollDices("start rolling");
+  }
+});
+body.addEventListener("pointercancel", () => { sorryClick = false; });
+body.addEventListener("pointerup", (e)=>{ sorryClick = false; });
 
 function rollDices(xxx) {
   if (spinning != true) {
@@ -545,6 +533,20 @@ async function showingDices(num1, num2) {
   dicesNumbers[0].innerText = num1; // повторяет еще раз (на всякий случай)
   dicesNumbers[1].innerText = num2; // повторяет еще раз (на всякий случай)
   spinning = false;
+}
+
+async function showingCards(num1, num2) {
+  sorryCardsNumber.innerText = num1;
+  sorryCardsText.innerText = num2;
+  sorryCardsMiniNumbers[0].innerText = num1;
+  sorryCardsMiniNumbers[1].innerText = num1;
+  sorryCardsMiniNumbers[2].innerText = num1;
+  sorryCardsMiniNumbers[3].innerText = num1;
+  if(num1 === "Sorry!") {
+    sorryCards.classList.add('sorry-type');
+  } else {
+    sorryCards.classList.remove('sorry-type');
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////////////

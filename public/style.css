@@ -557,8 +557,14 @@ a.cross-icon:hover {
   flex-wrap: wrap;
 
   cursor: pointer;
-
   container-type: inline-size;
+  transition: transform 0.2s ease;
+  &:hover {
+    transform: translate(-50%, -50%) scale(1.015);
+  }
+  &:active {
+    transform: translate(-50%, -50%) scale(1.03);
+  }
 }
 
 .sorry-cards>div {
