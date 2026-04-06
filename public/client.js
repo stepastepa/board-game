@@ -18,6 +18,7 @@ const minusButton = document.getElementById("minusButton");
 const moveButton = document.getElementById("moveButton");
 const roomHeaderSpan = document.querySelector(".room-header span");
 const sorryCards = document.querySelector(".sorry-cards");
+const sorryCardsCard = document.querySelector(".sorry-cards .card");
 const sorryCardsList = document.querySelectorAll(".sorry-cards>div");
 const sorryCardsNumber = document.querySelector(".sorry-cards .card>div");
 const sorryCardsText = document.querySelector(".sorry-cards .card>p");
@@ -324,7 +325,7 @@ function setupWebSocket() {
       //////////////////
       //////////////////
       // Sorry Cards
-      sorryCards.style.borderColor = diceColor;
+      sorryCardsCard.style.borderColor = diceColor;
       sorryCardsList[0].classList.remove("active"); // hide play
       sorryCardsList[1].classList.add("active"); // show card
 
