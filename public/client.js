@@ -505,7 +505,7 @@ dicesField.addEventListener("click", (e) => {
   rollDices("start rolling")
 });
 
-sorryCards.addEventListener("click", (e) => {
+sorryCards.addEventListener("pointerup", (e) => {
   rollDices("start rolling");
 });
 
