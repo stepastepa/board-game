@@ -79,6 +79,8 @@ body {
 }
 #game-board.sorry {
   background-image: url("./images/sorry3.png");
+  filter: drop-shadow(rgba(0, 0, 0, 0.533) 1px 1px 3px);
+  box-shadow: none;
 }
 
 .player {
