@@ -595,8 +595,12 @@ a.cross-icon:hover {
     transform: translate(-50%, -50%);
     border-radius: 50%;
   }
+  &.play:before {
+    background-color: hsl(0deg 100% 100% / 1);
+  }
   &.play {
     color: black;
+    background-color: #1f1f1f;
     border-radius: 8cqi;
     box-shadow: inset 0 0 0 1cqi white,
                 inset 0 0 0 1.5cqi black;
@@ -606,6 +610,7 @@ a.cross-icon:hover {
                    -1.5cqi 1.5cqi white,
                    1.5cqi -1.5cqi white,
                    -1.5cqi -1.5cqi white;
+      z-index: 2;
     }
   }
   &.card {
